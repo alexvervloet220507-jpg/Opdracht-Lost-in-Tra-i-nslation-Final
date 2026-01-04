@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost in Tra(i)nslation - Projectdocumentatie</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* 3D cube + animation (niet haalbaar puur met Tailwind) */
+        #cube-container {
+            perspective: 1000px;
+        }
+
+        .cube {
+            transform-style: preserve-3d;
+            animation: rotateCube 20s linear infinite;
+        }
+
+        @keyframes rotateCube {
+            from { transform: rotateX(0) rotateY(0); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            backdrop-filter: blur(5px);
+        }
+
+        .front  { transform: rotateY(0deg) translateZ(200px); }
+        .back   { transform: rotateY(180deg) translateZ(200px); }
+        .right  { transform: rotateY(90deg) translateZ(200px); }
+        .left   { transform: rotateY(-90deg) translateZ(200px); }
+        .top    { transform: rotateX(90deg) translateZ(200px); }
+        .bottom { transform: rotateX(-90deg) translateZ(200px); }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col overflow-x-hidden text-white">
+
+    <!-- Background cube -->
+    <div id="cube-container" class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none z-0">
+        <div class="cube w-full h-full relative">
+            <div class="cube-face front border border-white/10 bg-white/5"></div>
+            <div class="cube-face back border border-white/10 bg-white/5"></div>
+            <div class="cube-face right border border-white/10 bg-white/5"></div>
+            <div class="cube-face left border border-white/10 bg-white/5"></div>
+            <div class="cube-face top border border-white/10 bg-white/5"></div>
+            <div class="cube-face bottom border border-white/10 bg-white/5"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/30 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 text-center">
+            <h1 class="text-lg font-semibold tracking-tight">Lost in Tra(i)nslation</h1>
+            <p class="text-sm text-white/60">Alex Vervloet - GDM1</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="backdrop-blur-xl bg-black/20 border-b border-white/10">
+        <ul class="max-w-7xl mx-auto px-4 py-3 grid grid-cols-3 sm:grid-cols-6 md:grid-cols-11 gap-2 text-sm">
+            <li><a class="nav-btn bg-white/25" href="index.html">Home</a></li>
+            <li><a class="nav-btn" href="week1.html">Week 1</a></li>
+            <li><a class="nav-btn" href="week2.html">Week 2</a></li>
+            <li><a class="nav-btn" href="week3.html">Week 3</a></li>
+            <li><a class="nav-btn" href="week4.html">Week 4</a></li>
+            <li><a class="nav-btn" href="week5.html">Week 5</a></li>
+            <li><a class="nav-btn" href="week6.html">Week 6</a></li>
+            <li><a class="nav-btn" href="week7.html">Week 7</a></li>
+            <li><a class="nav-btn" href="week8.html">Week 8</a></li>
+            <li><a class="nav-btn" href="week9.html">Week 9</a></li>
+            <li><a class="nav-btn" href="week10.html">Week 10</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <main class="relative z-10 flex-1 max-w-7xl mx-auto px-6 py-20 text-center">
+        <h2 class="text-4xl font-bold tracking-tight mb-6 drop-shadow-lg">
+            Welkom bij mijn Projectdocumentatie
+        </h2>
+        <p class="text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
+            Volg mijn voortgang en ontdek hoe het project Lost in Tra(i)nslation tot leven komt.
+        </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="backdrop-blur-xl bg-black/30 border-t border-white/10 py-10 text-center">
+        <p class="text-white/60 text-sm">&copy; 2024 Alex Vervloet - GDM1</p>
+        <p class="mt-2 text-sm">
+            GitHub Repository:
+            <span class="text-white/80 font-semibold">Coming soon…</span>
+        </p>
+    </footer>
+
+    <!-- Tailwind component shortcut -->
+    <style>
+        .nav-btn {
+            @apply block text-center px-3 py-2 rounded-xl bg-white/10 border border-white/10 
+                   transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-lg;
+        }
+    </style>
+
+    <!-- Gradient interaction -->
+    <script>
+        let cx = 0.5, cy = 0.5, tx = 0.5, ty = 0.5;
+
+        document.addEventListener("mousemove", e => {
+            tx = e.clientX / innerWidth;
+            ty = e.clientY / innerHeight;
+        });
+
+        function animateBg() {
+            cx += (tx - cx) * 0.05;
+            cy += (ty - cy) * 0.05;
+
+            const h1 = 200 + cx * 40;
+            const h2 = 210 + cy * 30;
+
+            document.body.style.background =
+                `radial-gradient(at ${cx*100}% ${cy*100}%,
+                hsl(${h1},40%,18%) 0%,
+                hsl(${h2},35%,12%) 40%,
+                hsl(220,30%,8%) 100%)`;
+
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+    </script>
+
+</body>
+</html>
